@@ -1,0 +1,46 @@
+{% extends 'dashboard/paneladministracion.html' %}
+ 
+{%load static%}
+
+{% block title %}
+    Cambiar Contraseña
+{% endblock title %}
+{% block main %}
+    <section>
+        <div class="all-admin my-5">
+            <div class="container-fluid">
+                <div class="row mb-4 mt-2">
+                     
+                    <h1 class="text-center fw-bold fst-italic">Perfil de Usuario <span><i class="fa-solid fa-user"></i></span></h1> 
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <form action="" method="POST" enctype="multipart/form-data" class="form-floating">
+                            {% csrf_token %}
+                            {{form.as_p}}
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 mb-2">
+                                <button class="btn btn-primary me-md-2" type="submit">Actualizar Cambios</button>
+                                
+                            </div>
+                            
+                        </form>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <h2 class="text-title text-center">Foto de perfil</h2>
+                        {% if object.imagen %}
+                            <img src="/media/{{object.imagen}} " class="img-fluid d-block mx-auto shadow-lg  mb-5 bg-body rounded mt-2" style="height: 300px;"><br> 
+                        {% else %}
+                            <img src="{% static './assets/img/user3.png' %}" class="img-fluid d-block mx-auto shadow-lg  mb-5 bg-body rounded-circle mt-2" style="height: 300px;"><br> 
+                        {% endif %}
+                    </div>
+                    
+                    
+                
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+{% endblock main %}

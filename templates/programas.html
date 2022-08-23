@@ -1,0 +1,124 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block titulo %}PROGRAMAS{% endblock titulo %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static './assets/css/programas.css' %}">
+{% endblock extracss %}
+
+{% block main %}
+<section class="ps-4 pe-4 mt-5">
+    <div class="row shadow p-3 mb-5 rounded">
+        <div class="col-md-3">
+          <div class="text-center">
+            <img src="{% static './assets/images/sociedad.png' %}" class="mx-auto mt-3 mb-3 imagen-card" alt="...">
+            <h5 class="card-title">PROGRAMAS</h5>
+            <p class="card-text">Asociación de Empleados</p>
+          </div>
+    
+        </div>
+        <div class="col-md-9">
+          <h1 class="text-title">PROGRAMAS</h1>
+          <p>{% block titulopro %}A continuación se presentan las actividades realizadas con la comunidad de la Asociacion de Empleados de la UTC.{% endblock titulopro %}</p>
+        </div>
+    </div>
+
+</section>
+<section class="container">
+    {% if programas %} 
+        <div class="row mb-4">
+            <div class="col-md-12 search">
+                <form method="get">
+                    <div id="custom-search-input">
+                        <div class="input-group col-md-12">
+                            <input type="text" class="form-control" placeholder="Buscar......" name="buscar" value="{{ request.GET.buscar }}">
+                            <span class="input-group-list">
+                                <i class="icon icon-search"></i>
+                                <button type="submit" class="btn btn-primary">Buscar</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for programa in programas %}
+                <div class="col-md-6">
+                    <a href="{% url 'detalleprograma' programa.slug %}" class="text-dark" style="text-decoration: none;">
+                        <div class="card mb-3 shadow rounded ">
+                            <div class="row g-0 ">
+                                <div class="col-md-4">
+                                    <div class= " modal-container">
+                                        <img src="/media/{{programa.imagen_pro}}" class="img-fluid rounded-start imagen" alt="...">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{programa.titulo_pro}}</h5>
+                                        <p class="card-text">{{programa.descripcion_pro}}</p>
+                                        <p class="text-muted">  <small>Publicado el: {{programa.fechacreacion_pro}}</small>  </p>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+        
+                    </a>
+                
+                </div>
+            
+            {% endfor %}
+        
+                <nav aria-label="..." class="mt-4">
+                    <ul class="pagination justify-content-center">
+                    
+                        {% if programas.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1">Primera</a>
+                            </li>
+                            <li class="page-item"> 
+                                <a class="page-link" href="?page={{ programas.previous_page_number }} {% if request.GET.search %} &q={{ request.GET.search }} {% endif %}"><span aria-hidden="true">&laquo;</span></a>
+                            </li>
+        
+                            
+                        {% endif %}
+        
+                        {% for page in pages %}
+                            <li class="page-item {% if pagina_actual == page %} active {% endif %}">
+                                <a  class="page-link" href="?page={{ page }}"> {{ page }}</a>
+                            </li>
+                        {% endfor %}
+        
+        
+                        {% if programas.has_next %}
+                        
+                        
+                            <li class="page-item">
+                                
+                                <a class="page-link" href="?page={{ programas.next_page_number }} {% if request.GET.search %} &q={{ request.GET.search }} {% endif %}"> <span aria-hidden="true">&raquo;</span> </a>
+                                
+                            </li>
+        
+                            <li class="page-item" aria-current="page">
+                                <a class="page-link" href="?page={{ programas.paginator.num_pages }} ">Ultima</a>
+                            </li>
+        
+        
+                        {% endif %}
+                        
+                    </ul>
+                </nav>
+        </div>
+    {%else%}
+        <h1 class="text-primary text-center mt-4 mb-4 p-4">No existen registros  </h1>
+    {%endif%}
+</section>
+
+
+
+{% endblock main %}
+
+{% block extrajs %}
+
+{% endblock extrajs %}
+

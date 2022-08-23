@@ -1,0 +1,111 @@
+{% extends 'dashboard/paneladministracion.html' %}
+ 
+{%load static%}
+
+{% block title %}
+    Listar Preguntas
+{% endblock title %}
+{% block main %}
+
+<section>
+   <div class="all-admin my-5">
+       <div class="container-fluid">
+
+
+
+        <div class="row">
+            <!--TABLA-->
+             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4 ">
+                 <button class="btn-crud h-100 w-100" onclick="abrir_modal_creacion('{% url 'administrador:crearpreguntas' %}')" >
+                     <div class="card border-left-danger shadow h-100 py-2 rounded-pill">
+                         <div class="card-body">
+                             <div class="row no-gutters align-items-center">
+                                 <div class="col mr-2">
+                                     
+                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                     Añadir Nueva Pregunta
+                                     </div>
+                                 </div>
+                                 <div class="col-auto">
+                                     <i class="fas fa-add earn-icon wallet fa-2x text-gray-300"></i>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </button>
+             </div> 
+             
+            
+                
+   
+             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4 ">
+                 <button class="btn-crud h-100 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                     <div class="card border-left-danger shadow h-100 py-2 rounded-pill">
+                         <div class="card-body">
+                             <div class="row no-gutters align-items-center">
+                                 <div class="col mr-2">
+                             
+                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                         Listar  Preguntas
+                                     </div>
+                                 </div>
+                                 <div class="col-auto">
+                                     <i class="fas fa-list earn-icon wallet fa-2x text-gray-300"></i>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </button>
+             </div>    
+        
+             </div> 
+                 <div class="collapse" id="collapseExample">
+                     <div class="card card-body">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="order-list">
+                                <p class="order-ac-title">Listado de Preguntas</p>
+    
+                                <div class="data-table-section table-responsive">
+                                    <table id="tabla_preguntas" class="table table-striped dt-responsive nowrap" cellspacing="0" style="width:100%">
+                                        <thead>
+                                    
+                                            <tr>
+                                                <th>#</th>
+                                                <th>PREGUNTA</th>
+                                                <th>RESPUESTA</th>
+                                                <th>OPCIONES</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="order-view-tb">
+                
+                                        </tbody>
+                                        
+                                    </table>
+    
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                 </div>
+                 
+         </div>
+
+
+
+       </div>
+   </div>
+</section>
+
+<div class="modal fade" id="crear" role="dialog"></div>
+
+<div class="modal fade" id="editar" role="dialog"></div>
+
+<div class="modal fade" id="eliminar" role="dialog"></div>
+
+{% endblock main %}
+
+{% block extrajs %} 
+    
+    <script src="{% static 'assets/js/preguntas/index.js' %}"></script>
+
+{% endblock extrajs %} 

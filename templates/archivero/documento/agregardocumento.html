@@ -1,0 +1,37 @@
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-light" style="background-color: #312682;">
+        <h5 class="modal-title">Agregar Nuevo Documento</h5>
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method = "post" enctype="multipart/form-data" id="form_creacion" action="{% url 'archivero:creardocumentos' %}">
+          {% csrf_token %}
+          <div class="modal-body">
+                <div  id="errores"></div>
+                {{form.as_p}} 
+          </div>
+          <div class="modal-footer">
+             <button type="button" class="btn btn-danger" onclick="cerrar_modal_creacion()">Cancelar</button>
+             <button id="boton_creacion" type="button" class="btn btn-primary" onclick="registrar();">Confirmar</button>
+          </div>
+
+      </form>
+      
+    </div>
+</div>
+        
+{% block extrajs %} 
+
+  <script>
+    $("#documento_doc").fileinput({        
+      uploadAsync: false,
+      showUpload: false,
+      language:"es",
+      purifyHtml: true,
+      allowedFileExtensions: [ 'pdf'],
+      maxFileSize: 1024*2,
+      minFileSize: 24,
+    });
+  </script>
+
+{% endblock extrajs %} 

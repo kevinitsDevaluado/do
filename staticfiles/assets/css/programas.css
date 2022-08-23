@@ -1,0 +1,9 @@
+
+.modal-container img:hover{
+    transform: scale(1.15);
+   
+}
+
+.img_pro{
+    max-height: 80vh;
+}

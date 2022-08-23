@@ -1,0 +1,193 @@
+{% extends 'dashboard/paneladministracion.html' %}
+ 
+{%load static%}
+
+{% block title %}
+    Listar Temas
+{% endblock title %}
+
+{% block menuleft %}
+    <div class="left-menu">
+            <div class="menubar-content">
+                <nav class="animated bounceInDown">
+                    <ul id="sidebar">
+                        <ul id="sidebar">
+                            <li class="active">
+                                <a href="{% url 'administrador:paneladministracion' %}"> <i class="fas fa-home"></i>REGRESAR AE-UTC</a>
+                            </li>
+                      
+                            <li>
+                                <a href="{% url 'archivero:inicio_documentos' %}"> <i class="fa-solid fa-group-arrows-rotate"></i>Regresar al Archivero</a>
+                            </li>
+                            
+                            <li>
+                                <a href="{% url 'logout' %}"> <i class="fas fa-sign-out-alt"></i>CERRAR SESIÓN</a>
+                            </li>
+    
+                        </ul>
+
+                    </ul>
+                </nav>
+            </div>
+    </div>
+{% endblock menuleft %}
+
+{% block main %}
+
+<div  id="loading-screen"  > </div>
+<style>
+    #loading-screen {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url('/static/assets/gif/gif3.gif') 50% 50% no-repeat rgb(249,249,249);
+        opacity: .8;
+    }
+</style>
+<section>
+   <div class="all-admin my-5">
+       <div class="container-fluid">
+
+        <div class="row">
+            <!--TABLA-->
+         
+
+             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4 ">
+                 <button class="btn-crud h-100 w-100" onclick="abrir_modal_creacion('{% url 'archivero:creartemas' %}')"  >
+                     <div class="card border-left-danger shadow h-100 py-2 rounded-pill">
+                         <div class="card-body">
+                             <div class="row no-gutters align-items-center">
+                                 <div class="col mr-2">
+                                     
+                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                     Añadir Nuevo Tema (Archivero)                                   </div>
+                                 </div>
+                                 <div class="col-auto">
+                                     <i class="fas fa-add earn-icon wallet fa-2x text-gray-300"></i>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </button>
+             </div> 
+             
+            
+            
+                
+   
+             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4 ">
+                 <button class="btn-crud h-100 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                     <div class="card border-left-danger shadow h-100 py-2 rounded-pill">
+                         <div class="card-body">
+                             <div class="row no-gutters align-items-center">
+                                 <div class="col mr-2">
+                             
+                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                         Listar  Temas (Archivero)
+                                     </div>
+                                 </div>
+                                 <div class="col-auto">
+                                     <i class="fas fa-list earn-icon wallet fa-2x text-gray-300"></i>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </button>
+             </div>    
+        
+             </div> 
+                 <div class="collapse" id="collapseExample">
+                     <div class="card card-body">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="order-list">
+                                <p class="order-ac-title">Listado de Temas</p>
+    
+                                <div class="data-table-section table-responsive">
+                                    <table id="tabla_tema_archivero" class="table table-striped dt-responsive nowrap" cellspacing="0" style="width:100%">
+                                        <thead>
+                                    
+                                            <tr>
+                                                <th>#</th>
+                                                <th>TEMA</th>
+                                                <th>OPCIONES</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="order-view-tb">
+                
+                                        </tbody>
+                                        
+                                    </table>
+    
+                                </div>
+                            </div>
+                        </div>
+                        
+                     </div>
+                 </div>
+                 
+         </div>
+
+
+
+
+
+
+
+
+
+
+
+       </div>
+   </div>
+</section>
+
+<div class="modal fade" id="crear" role="dialog"></div>
+
+<div class="modal fade" id="editar" role="dialog"></div>
+
+<div class="modal fade" id="eliminar" role="dialog"></div>
+
+{% endblock main %}
+
+{% block extrajs %} 
+    
+    <script src="{% static 'assets/js/archivero/temas/index.js' %}"></script>
+    <script>
+            
+        $(document).ready(function(){
+            var screen = $('#loading-screen');
+            configureLoadingScreen(screen);
+
+            $('.do-request').on('click',function(){
+                $.get(response)
+                    .done(function(result){
+                        $().text(JSON.stringify(result,null,2));
+
+        
+                    })
+                    .fail(function(error){
+                        console.error(error);
+                    })
+                
+            })                          
+
+
+
+        });
+        function configureLoadingScreen(screen){
+            $(document)
+                .ajaxStart(function(){
+                    screen.fadeIn();
+                })
+                .ajaxStop(function(){
+                    screen.fadeOut();
+                });
+                }
+
+
+    </script>
+
+{% endblock extrajs %} 

@@ -1,0 +1,23 @@
+
+/*Seccion de preguntas frecuentes*/
+summary {
+    font-weight: 600;
+    color: rgb(0, 5, 8);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+details {
+    border: 1px solid #05122c;
+    border-radius: 5px;
+    padding: 5px;
+    font-family: var(--fuente-cuerpo);
+    margin-bottom: 10px;
+    background:rgb(222, 226, 238)
+}
+
+details summary::-webkit-details-marker {
+    color: #CC0;
+}
+
+/*Fin de Seccion de preguntas frecuentes*/

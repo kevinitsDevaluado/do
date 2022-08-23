@@ -1,0 +1,79 @@
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-light" style="background-color: #312682;">
+        <h5 class="modal-title">Editar Asociacion</h5>
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method = "post" enctype="multipart/form-data" id="form_edicion" action="{% url 'administrador:actualizarinstitucion' object.pk %}">
+          {% csrf_token %}
+          <div class="modal-body">
+              <div  id="erroresEdicion"></div>
+              <div class="row mb-4">
+                <h1 class="text-center">Introducción</h1>
+                <div class="col-md-7">
+                    <div class="form-floating">
+                      {{ form.introduccion}}
+                      <label for="introduccion" >Ingrese contenido para la Introducción</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                  <img src="/media/{{object.imagen_intro}} " class="img-fluid d-block mx-auto shadow-lg  mb-5 bg-body rounded mt-2" ><br> 
+                  {{ form.imagen_intro}}
+                </div>
+               
+              </div>
+              <div class="row mb-4">
+                <h1 class="text-center">Misión</h1>
+                <div class="col-md-7">
+                    <div class="form-floating">
+                      {{ form.mision}}
+                      <label for="mision">Ingrese contenido para Misión</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                  <img src="/media/{{object.imagen_mision}} " class="img-fluid d-block mx-auto shadow-lg  mb-5 bg-body rounded mt-2" ><br> 
+                  {{ form.imagen_mision}}
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <h1 class="text-center">Visión</h1>
+                <div class="col-md-7">
+                    <div class="form-floating">
+                      {{ form.vision}}
+                      <label for="vision">Ingrese contenido para Visión</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                  <img src="/media/{{object.imagen_vision}} " class="img-fluid d-block mx-auto shadow-lg  mb-5 bg-body rounded mt-2" ><br> 
+                  {{ form.imagen_vision}}
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <h1 class="text-center">Reseña</h1>
+                <div class="col-md-7">
+                    <div class="form-floating">
+                      {{ form.resenia}}
+                      <label for="resenia">Ingrese contenido para la Resenia</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                  <img src="/media/{{object.imagen_resenia}} " class="img-fluid d-block mx-auto shadow-lg  mb-5 bg-body rounded mt-2" ><br> 
+                  {{ form.imagen_resenia}}
+                </div>
+              </div>
+              
+              
+                
+          </div>
+          <div class="modal-footer">
+             <button type="button" class="btn btn-danger" onclick="cerrar_modal_edicion()">Cancelar</button>
+             <button id="boton_creacion" type="button" class="btn btn-primary" onclick="editar();">Confirmar</button>
+          </div>
+
+      </form>
+      
+    </div>
+</div>
+

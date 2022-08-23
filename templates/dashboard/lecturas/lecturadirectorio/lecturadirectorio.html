@@ -1,0 +1,236 @@
+{% extends 'dashboard/paneladministracion.html' %}
+ 
+{%load static%}
+
+{% block title %}
+    Listar Archivos Directorio
+{% endblock title %}
+{% block main %}
+
+
+
+<form onsubmit="document.getElementById('submit').disabled=true; processFormData();">
+
+    <section class="dashboard-top-sec">
+     
+        <div class="all-admin my-5">
+            <div class="container-fluid">
+    
+    
+    
+                <div class="row">
+    
+                    {%if listardirectorios %}
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-4 ">
+                        <button class="btn-crud h-100 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            <div class="card border-left-danger shadow h-100 py-2 rounded-pill">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                    
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                Lecturas  Por Realizar
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-list earn-icon wallet fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>  
+                    
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-4 ">
+                        <button class="btn-crud h-100 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
+                            <div class="card border-left-danger shadow h-100 py-2 rounded-pill">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                    
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                Lecturas Por Modificar
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-list earn-icon wallet fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>   
+                    
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-4 ">
+                        <button class="btn-crud h-100 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+                            <div class="card border-left-danger shadow h-100 py-2 rounded-pill">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                    
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                Lecturas Realizadas
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-list earn-icon wallet fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>  
+    
+                    <div class="collapse" id="collapseExample">
+                        <div class="row">
+                            <h2 class="text-center p-4">Lecturas Faltantes</h2>
+                            {% for listardirectorio in listardirectorios %} 
+                 
+                            {% if listardirectorio.contenido_dir == 'False' %}
+                                    
+                                    <div class="col-md-4">
+                                        <div class="card card-body">
+                                            <h5 class="card-title">{{listardirectorio.fk_id_dir}}</h5>
+                                            <p class="card-text"> Fecha de Publicación: <small>{{listardirectorio.fechacreacion_dir}}</small></p>
+                                            <a href="{{listardirectorio.archivo_dir.url}}" class="card-link text-dark" target="__blank__">{{listardirectorio.nombre_dir}}</a>
+                                           
+                                           
+                                            <div align="center">
+                                                <img class="img-fluid mt-4 mb-4 p-2" src="{% static './assets/images/eye.png' %}"  style="width: 64px;">
+                                                <br>
+                                                <div class="form-check form-switch">
+                                                <input  type="radio"   value="{{listardirectorio.id}}"   name="lectura" class="form-check-input"> <!--value para saber si se selecciono -->
+                                                </div>         
+                                            
+                                            </div>         
+                            
+                                        </div>
+    
+                                    </div>
+    
+                                {%endif%}
+                 
+                 
+                            {% endfor %}
+    
+                        </div>
+                        
+                    </div>
+        
+                    <div class="collapse" id="collapseExample3">
+                        <div class="row">
+                            <h2 class="text-center p-4">Lecturas de Archivos Modificados</h2>
+                            {% for listardirectorio in listardirectorios %} 
+                 
+                            {% if listardirectorio.contenido_dir == 'Modificar' %}    
+                                    
+                            <div class="col-md-4">
+                                <div class="card card-body">
+                                    <h5 class="card-title">{{listardirectorio.fk_id_dir}}</h5>
+                                    <p class="card-text"> Fecha de Publicación: <small>{{listardirectorio.fechacreacion_dir}}</small></p>
+                                    <a href="{{listardirectorio.archivo_dir.url}}" class="card-link text-dark" target="__blank__">{{listardirectorio.nombre_dir}}</a>
+                                   
+                                    <div  align="center">
+                                        <img class="img-fluid mt-4 mb-4 p-2" src="{% static './assets/images/modificar.jpg' %}"  style="width: 64px;">
+                                        Archivo modificado <br>
+                                        <div class="form-check form-switch">
+                                        <input  type="radio"   value="{{listardirectorio.id}}"   name="lectura" class="form-check-input"> <!--value para saber si se selecciono -->
+                                        </div> 
+                                    </div> 
+                                        
+                                        
+                                    
+                                        
+                                </div>
+    
+                            </div>
+                            {%endif%}
+            
+            
+                                    {% endfor %}
+                        </div>
+                       
+                    </div>
+        
+                     
+                            <div class="collapse" id="collapseExample2">
+                                <div class="row">
+                                    <h2 class="text-center p-4">Lecturas Realizadas</h2>
+                                    {% for listardirectorio in listardirectorios %} 
+                    
+                                        {% if listardirectorio.contenido_dir != 'False' and listardirectorio.contenido_dir != 'Modificar' %}    
+                                    
+                                    <div class="col-md-4">
+                                        
+                                        <div class="card card-body">
+                                           
+                                                <h5 class="card-title">{{listardirectorio.fk_id_dir}}</h5>
+                                                <p class="card-text"> Fecha de Publicación: <small>{{listardirectorio.fechacreacion_dir}}</small></p>
+                                                <a href="{{listardirectorio.archivo_dir.url}}" class="card-link text-dark" target="__blank__">{{listardirectorio.nombre_dir}}</a>
+                                               
+                                            <div  align="center">
+                                                <img class="img-fluid mt-4 mb-4 p-2" src="{% static './assets/images/check.png' %}"  style="width: 64px;">
+                                                <br>
+                                                <div class="form-check form-switch">
+                                                <input  type="radio"   value="{{listardirectorio.id}}"  disabled name="lectura" class="form-check-input"> <!--value para saber si se selecciono -->
+                                                </div>  
+                                            
+                                            </div>  
+                                        </div>
+                                       
+    
+                                    </div>
+                                    {%endif%}
+                        
+                        
+                                    {% endfor %}
+                                </div>
+                             
+                            </div>
+    
+                        
+        
+                            <div class="text-center mt-2" >
+                                <button id="submit" type="submit" onclick="document.getElementById('loading-screen').style.visibility='visible';" class="btn-flotante btn-outline-primary rounded-pill">Lectura</button> 
+                            </div>
+                            </form>
+                        {%else%}
+                                <h2 class="text-center text-primary p-4 m-4"> No se han cargado archivos para realizar lectura</h2>
+                        {%endif%}   
+    
+           
+    
+                </div>
+    
+    
+    
+    
+    
+            </div>
+        </div>
+    
+    
+    
+    </section>
+    <div  id="loading-screen"  > </div>
+
+    
+    <style>
+        #loading-screen {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url('/static/assets/gif/gif3.gif') 50% 50% no-repeat rgb(249,249,249);
+            opacity: .8;
+            visibility:hidden;
+        }
+    </style>
+
+
+
+
+{% endblock main %}
+

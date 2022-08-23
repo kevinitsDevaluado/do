@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block titulo %}Visualizador_Asamblea{% endblock titulo %}
+{% block main %}
+
+
+
+<section class="container mb-5 mt-5">
+    {%for archivo in archivos%}
+
+        
+        <embed src="/media/{{archivo.0}}" type="application/pdf" height="700px" width="100%">
+            
+        
+    
+       
+    {%endfor%}
+
+</section>
+
+
+
+{% endblock main %}
+
+

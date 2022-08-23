@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block titulo %}NOSOTROS{% endblock titulo %}
+{% block main %}
+    <!-- Introducción Nosotros -->
+    <section class="ps-4 pe-4 mt-5">
+      <div class="row mt-5">
+        <div class="col-md-12 text-center">
+          <h1 class="title-nosotros">CONTACTOS</h1>
+          <p class="mt-3">Puedes usar los siguientes medios para contactarnos</p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="container">
+      <div class="row mt-4">
+        <div class="col-md-6 mb-5">
+          <!-- Formulario -->
+            <h4 class="mb-4">Formulario</h4>
+            <form>
+              <div class="mb-3">
+                <label for="nya" class="form-label txt_negrita">Nombres y Apellidos</label>
+                <input type="text" class="form-control" id="nya" aria-describedby="nyaHelp" required>
+                <div id="nyaHelp" class="form-text">Ejemplo: Juan Perez</div>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label txt_negrita">Email</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
+                <div id="emailHelp" class="form-text">Ejemplo: juanperez@mail.com</div>
+              </div>
+              <div class="mb-3">
+                <label for="asunto" class="form-label txt_negrita">Asunto</label>
+                <input type="text" class="form-control" id="asunto" aria-describedby="asuntoHelp" required>
+                <div id="asuntoHelp" class="form-text">Ejemplo: Solicitud de Bienes</div>
+              </div>
+              <div class="mb-3">
+                <label for="mensaje" class="form-label txt_negrita">Mensaje/Descripción</label>
+                <textarea class="form-control" id="mensaje" rows="3" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Aceptar</button>
+            </form>
+        </div>
+  
+        <div class="col-md-6">
+          <h4 class="mb-4">Datos de Contacto</h4>
+          <div class="mb-3">
+            <b><img src="{% static './assets/images/direccion.png' %}" alt="Dirección:" width="32" height="32"> </b> Av. Simón Rodríguez s/n Barrio El Ejido Sector San Felipe.
+          </div>
+          <div class="mb-3">
+            <b><img src="{% static './assets/images/mapa.png' %}" width="32" height="32"> </b> Latacunga - Ecuador
+          </div>
+          <div class="mb-3">
+            <b><img src="{% static './assets/images/telefono.png' %}" alt="Teléfono:" width="32" height="32"></b> (593) 03 2252205 / 2252307 / 2252346
+          </div>
+          <div class="mb-3">
+            <b><img src="{% static './assets/images/email.png' %}" alt="Email" width="32" height="32"></b> asoempleados@utc.edu.ec
+          </div>
+  
+          <div class="fw-bold mt-4">
+              Nuestra Ubicacion Exacta
+          </div>
+  
+          <div class="ratio ratio-21x9 mt-1">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1258.3456658608159!2d-78.63316116945136!3d-0.9178547190219352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d460483c1c1a3b%3A0x694a140aab02b1c!2sUniversidad%20T%C3%A9cnica%20de%20Cotopaxi!5e1!3m2!1ses!2sec!4v1651861188611!5m2!1ses!2sec" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+              
+        </div>
+  
+            
+  
+      </div>
+
+    </section>
+    
+{% endblock main %}

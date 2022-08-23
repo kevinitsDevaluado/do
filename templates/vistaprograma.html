@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block titulo %}
+    {{ detalleprograma.titulo_pro}}
+{% endblock titulo %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static './assets/css/programas.css' %}">
+{% endblock extracss %}
+
+{% block main %}
+<section class="ps-4 pe-4 mt-5">
+  <div class="row shadow p-3 mb-5 rounded">
+    <div class="col-md-3">
+      <div class="text-center">
+        <img src="{% static './assets/images/sociedad.png' %}" class="mx-auto mt-3 mb-3 imagen-card" alt="...">
+        <h5 class="card-title">PROGRAMAS</h5>
+        <p class="card-text">Asociación de Empleados</p>
+      </div>
+
+    </div>
+    <div class="col-md-9">
+      <h1 class="text-title">{{ detalleprograma.titulo_pro}}</h1>
+      <p>{% block titulopro %}{{ detalleprograma.descripcion_pro }}{% endblock titulopro %}</p>
+    </div>
+  </div>
+
+</section>
+
+<section class="container">
+  <div class="row">
+    <!-- Post content-->
+    <article>
+        <!-- Post header-->
+        <header class="mb-4">
+            <!-- Post title-->
+            <h1 class="fw-bolder mb-1">{{ detalleprograma.titulo_pro}}</h1>
+            <!-- Post meta content-->
+            <div class="text-muted fst-italic mb-2">Publicado el:  {{ detalleprograma.fechacreacion_pro}}</div>
+        </header>
+        <!-- Preview image figure-->
+        <figure class="mb-4 "><img class="img-fluid rounded mx-auto d-block img_pro" src="/media/{{detalleprograma.imagen_pro}}" alt="..." /></figure>
+        <!-- Post content-->
+        <section class="mb-5">
+          <p class="fs-5 mb-4" style="text-align: justify;">{{ detalleprograma.contenido_pro| safe }}</p>
+            
+        </section>
+    </article>
+  </div>
+
+</section>
+
+
+ 
+   
+{% endblock main %}
+
+{% block extrajs %}
+
+{% endblock extrajs %}
+
+

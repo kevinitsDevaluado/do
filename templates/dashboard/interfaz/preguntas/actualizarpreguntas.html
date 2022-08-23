@@ -1,0 +1,22 @@
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-light" style="background-color: #312682;">
+        <h5 class="modal-title">Edicion del {{ object.pregunta }}</h5>
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method = "post"  id="form_edicion" action="{% url 'administrador:actualizarpreguntas' object.pk %}">
+          {% csrf_token %}
+          <div class="modal-body">
+                <div  id="erroresEdicion"></div>
+                {{form.as_p}} 
+                
+          </div>
+          <div class="modal-footer">
+             <button type="button" class="btn btn-danger" onclick="cerrar_modal_edicion()">Cancelar</button>
+             <button id="boton_creacion" type="button" class="btn btn-primary" onclick="editar();">Confirmar</button>
+          </div>
+
+      </form>
+      
+    </div>
+</div>

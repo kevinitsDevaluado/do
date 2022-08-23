@@ -1,0 +1,363 @@
+{%load static%}
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+   
+    <link rel="stylesheet" href="{% static './assets/css/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    
+
+    <!--Data tables-->
+    
+    <link rel="stylesheet" type="text/css" href="{% static './assets/css/datatables/jquery.dataTables.css' %}">
+    <link rel="stylesheet" href="{% static './assets/css/datatables/dataTables.bootstrap5.min.css' %}">
+    <link rel="stylesheet" href="{% static './assets/css/datatables/responsive.dataTables.min.css' %}">
+
+    <!--Redireccionamiento icono-->
+    <link rel="icon" href="{% static './assets/images/sello_white.ico' %}">
+
+
+    <!--Estilos extra-->
+    <link rel="stylesheet" href="{% static './assets/css/index/index.css' %}">
+   
+    <link rel="stylesheet" href="{% static './assets/css/index/imgen.css' %}">
+    
+  
+    
+    {% block extracss %}
+    {% endblock extracss %}
+
+    
+    
+    <title>{% block titulo %}AE-UTC{% endblock titulo %}</title>
+    
+  </head>
+  <body>
+    <!--=================================================================================================-->
+    <!--Encabezado-->
+    <!--=================================================================================================-->
+
+    
+    <header class="d-flex flex-wrap py-3  border-bottom">
+      <!--Comienza la barra de navegacion -->
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="menu">
+        <div class="container-fluid">
+          <!--Imagen del Sello de la asociacion-->
+          <a class="navbar-brand" href="{% url 'publico:index' %}">
+            <img src="{% static './assets/images/sello.png' %}" alt="" class="img-nav">
+          </a>
+          <!--Boton del menu-->
+          <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+  
+          <!--Elementos del menu colapsable-->
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto ">
+              <li class="nav-item">
+                <a class="nav-link {% if navbar == 'Home' %}active{% endif %}" aria-current="page" href="{% url 'publico:index' %}">INICIO</a>
+              </li> 
+              <li class="nav-item dropdown">
+                  <a class="nav-link {% if navbar == 'Home' %}active{% endif %} dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    NOSOTROS
+                  </a>
+                  <ul class="dropdown-menu " aria-labelledby="navbarDropdown" style="background-color: #312682;">
+                    <li><a class="dropdown-item text-light" href="{% url 'publico:index' %}#mision">MISIÓN</a></li>
+                    <li><a class="dropdown-item text-light" href="{% url 'publico:index' %}#vision">VISIÓN</a></li>
+                    <li><hr class="dropdown-divider text-light"></li>
+                    <li><a class="dropdown-item text-light" href="{% url 'publico:index' %}#resenia">RESEÑA HISTORICA</a></li>
+                  </ul>
+                  
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if navbar == 'Transparencia' %}active{% endif %}" href="{% url 'publico:transparencia' %}">TRANSPARENCIA</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if navbar == 'Resoluciones' %}active{% endif %}" href="{% url 'publico:resoluciones' %}">RESOLUCIÓN</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if navbar == 'programas' %}active{% endif %}" href="{% url 'publico:programas' %}">PROGRAMAS</a>
+              </li>
+  
+              <li class="nav-item">
+                <a class="nav-link {% if navbar == 'nosotros' %}active{% endif %}" href="{% url 'publico:nosotros' %}">CONTÁCTANOS</a>
+              </li>
+            </ul> 
+            <hr class="text-white-50">  
+            <!--Enlaces Redes sociales-->
+            <ul class="navbar-nav flex-row flex-wrap text-light">
+              <li class="nav-item col-6 col-md-auto p-3">
+                <i class="bi bi-whatsapp"></i>
+                <small class="d-lg-none ms-2">WhatsApp</small>
+              </li>
+            </ul>
+  
+          </div>
+                        
+        </div>
+         
+      </nav>
+
+    </header>
+   
+
+    
+
+    {% block main %}
+    
+    <!--=================================================================================================-->
+    <!--Carousell-->
+    <!--=================================================================================================-->
+    <section id="carousel" class="caru">
+      
+        {%if galerias%}
+        <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        
+          <div class="carousel-inner">
+            {% for galeria in galerias %}
+              <div class="carousel-item {% if forloop.counter0 == 0%} active {% endif %} " data-bs-interval="4000">
+                <img src="/media/{{galeria.imagen_gal}}" class="d-block w-100 imca" alt="..."> 
+                
+                  <div class="carousel-caption d-none d-md-block bg-dark bg-gradient rounded-pill p-1" id="vista">
+                    
+                      <h3 class="fw-2">{{galeria.titulo_gal}}</h3>
+                      <p >{{galeria.descripcion_gal}}</p>
+                    
+                      {% if galeria.url_gal != null %}
+                        <a href="{{ galeria.url_gal }}" target="__blank__" class=" btn btn-primary ">Click aqui</a>
+                    
+                      {% endif %}
+
+                   
+                    
+                  </div>
+              </div>
+            {% endfor %}
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        {%else%}
+          <h2 class="text-center text-primary mb-4 mt-4 p-4 border"> No existe multimedia cargada </h2>
+        {%endif%}
+      
+
+    </section>
+    <!--FINCarousell-->
+    
+
+    <!--=================================================================================================-->
+    <!-- Introducción Nosotros -->
+    <!--=================================================================================================-->
+    {% for institucion in instituciones %}
+    <section id="asociacion"  class="container mb-5">
+        <div class="row mt-5">
+          <div class="col-md-12 text-center">
+            <h1 class="title-nosotros">LA ASOCIACIÓN</h1>
+          </div>
+        </div>
+  
+        <div class="row mt-4 mb-4 align-items-center">
+          <div class="col-md-6" id="nosotros">
+            <img src="{{ institucion.imagen_intro.url}}" class="img-fluid img-nosotros">
+          </div>
+          
+          <div class="col-md-6" id="dere_nosotros">
+            <h2 class="text-center">La Asociación de Empleados</h2>
+            <p style="text-align: justify;" >
+              {{ institucion.introduccion}}
+            </p>
+          </div>
+          
+        </div>
+    </section>
+    <!-- Fin introducción Nosotros -->
+      
+
+    <br>
+    <!--=================================================================================================-->
+    <!--Mision -->
+    <!--=================================================================================================-->
+    <section  id="mision" class="container mb-5">
+        <div class="row mt-5 mb-4 align-items-center">
+          <div class="col-md-6">
+            <h2 class="text-center">MISIÓN</h2>
+            <p style="text-align: justify;">
+              {{ institucion.mision}}
+            </p>
+          </div>
+          <div class="col-md-6" id="logo">
+            <img src="{{ institucion.imagen_mision.url}}" class="img-fluid img-nosotros img-1"  >
+          </div>
+          
+          
+        </div>
+
+    </section>
+    <!--Fin Mision -->
+
+      
+    <br>
+    <!--=================================================================================================-->
+    <!--Vision -->
+    <!--=================================================================================================-->
+    <section id="vision" class="container mb-5">
+        <div class="row mt-5 mb-4 align-items-center">
+        
+          <div class="col-md-6">
+            <img src="{{ institucion.imagen_vision.url}}" class="img-fluid img-nosotros img-2">
+          </div>
+          <div class="col-md-6">
+            <h2 class="text-center">VISIÓN</h2>
+            <p style="text-align: justify;">
+              {{ institucion.vision}}
+            </p>
+          </div>
+        </div>
+    </section>
+    <!--Fin Vision -->
+
+      
+    <br>
+    <!--=================================================================================================-->
+    <!--Reseña Historica -->
+    <!--=================================================================================================-->
+    <section id="resenia" class="container mb-5">
+        <div class="row mt-5 mb-4 align-items-center">
+          <div class="col-md-8">
+            <h2 class="text-center" >RESEÑA HISTORICA</h2>
+            <p style="text-align: justify;">
+              {{ institucion.resenia}}
+            </p>
+          </div>
+          
+          <div class="col-md-4">
+            <img src="{{ institucion.imagen_resenia.url}}" class="img-fluid img-nosotros img-3">
+          </div>
+          
+          
+          
+        </div>
+
+    </section>
+    <!--Reseña Historica -->
+    
+    {% endfor %}
+      
+    <br>
+    <!--=================================================================================================-->
+    <!-- PREGUNTAS FRECUENTES -->
+    <!--=================================================================================================-->
+   {% if answers %}
+    <section  id="faqs" class="container mb-5">
+        <div class="row mt-5">
+          <div class="col-md-12 text-center">
+            <h1 class="title-nosotros">PREGUNTAS FRECUENTES</h1>
+          </div>
+        </div>
+       
+        <div class="row mt-4">
+          {% for answer in answers %}
+          <div class="col-md-6">
+            <details class="text-center bg-primary text-light">
+              <summary class="text-light">{{answer.pregunta}}</summary>
+              <p class="pt-4 ms-4">{{answer.respuesta}}</p>
+            </details>
+
+          </div>
+          {% endfor %}
+        </div>
+
+    </section>
+    {% endif %}
+
+    <!-- FIN PREGUNTAS FRECUENTES -->
+
+    {% endblock main %}
+
+
+
+    <!--=================================================================================================-->
+    <!-- Footer -->
+    <!--=================================================================================================-->
+    <footer class="footer text-light w-100 text-center flex-wrap">
+          <!-- Grid container -->
+          <div class="container p-2">
+              <!-- Section: Social media -->
+              <section class="mb-2">
+                  <!-- Facebook -->
+                  <a class="btn btn-outline-light btn-floating m-1  rounded-circle" href="#!" role="button"><i class="bi bi-facebook"></i></a>
+                  
+                  <!-- Twitter -->
+                  <a class="btn btn-outline-light btn-floating m-1 rounded-circle" href="#!" role="button"><i class="bi bi-twitter"></i></a>
+
+                  <!-- Google -->
+                  <a class="btn btn-outline-light btn-floating m-1 rounded-circle" href="#!" role="button"><i class="bi bi-google"></i></a>
+            
+                  <!-- Instagram -->
+                  <a class="btn btn-outline-light btn-floating m-1 rounded-circle" href="#!" role="button"><i class="bi bi-instagram"></i></a>
+                 
+              </section>
+    
+              <!-- Section: Text -->
+              <section class="mb-2">
+                
+              </section>
+             
+          </div>
+          <!-- FIN Grid container -->
+          <!-- Copyright -->
+          <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2);">
+            © <script>document.write(new Date().getFullYear())</script>  ATUTC:
+            <a class="text-light" href="#" target="_blank_">www.atutc.com</a>
+          </div>
+          <!-- Copyright -->
+    </footer>
+    <!-- FIN Footer -->
+
+  
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="{% static './assets/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static './assets/js/jquery.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+   
+
+    <!--Scrip de animacion -->
+    <script src="{% static './assets/js/animaciones/scrollreveal.js' %}"></script>
+    <script src="{% static './assets/js/animaciones/animaciones.js' %}"></script>
+    
+    <!--Fin Scrip de animacion -->
+
+    <!--DataTable Instalation-->
+     <script type="text/javascript" charset="utf8" src="{% static './assets/js/datatables/jquery.dataTables.js' %}" ></script>
+   <script src="{% static './assets/js/datatables/dataTables.bootstrap5.min.js' %}"></script>
+   <script src="{% static './assets/js/datatables/jquery.dataTables.min.js' %}"></script>
+   <script src="{% static './assets/js/datatables/dataTables.responsive.min.js' %}"></script>
+    <!--FIN DataTable Instalation-->
+
+    
+  
+
+    {% block extrajs %}
+    {% endblock extrajs %}
+
+
+   
+  </body>
+</html>
+
+

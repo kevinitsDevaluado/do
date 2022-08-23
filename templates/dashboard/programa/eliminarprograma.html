@@ -1,0 +1,25 @@
+
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">¿Está Seguro de Eliminar?</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="{% url 'administrador:eliminarprograma' object.id %}" method="POST">
+              {% csrf_token %}
+              <div class="modal-body">
+                  <p class="text-center fs-6"> {{object}}, {{object.descripcion_pro}}, {{object.imagen_pro}} </p>
+                 
+              </div>
+              <div class="modal-footer">
+                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                 <button type="submit" class="btn btn-primary">Confirmar</button>
+              </div>
+  
+          </form>
+          
+        </div>
+      </div>
+  
+  
+  

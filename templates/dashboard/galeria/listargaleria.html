@@ -1,0 +1,166 @@
+{% extends 'dashboard/paneladministracion.html' %}
+ 
+{%load static%}
+
+{% block title %}
+    Listar Galeria
+{% endblock title %}
+{% block main %}
+
+
+<div  id="loading-screen"  > </div>
+
+
+<section>
+   <div class="all-admin my-5">
+       <div class="container-fluid">
+
+            <div class="row">
+                <!--TABLA-->
+         
+           
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4 ">
+                    <button class="btn-crud h-100 w-100"   onclick="abrir_modal_creacion('{% url 'administrador:agregargaleria' %}')"  >
+                        <div class="card border-left-danger shadow h-100 py-2 rounded-pill">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        Añadir Galeria
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-add earn-icon wallet fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                </div> 
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4 ">
+                    <button class="btn-crud h-100 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="card border-left-danger shadow h-100 py-2 rounded-pill">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            Listar  contenido de Galeria
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-list earn-icon wallet fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                </div>    
+    
+             
+                <div class="collapse" id="collapseExample">
+                    <div class="row">
+                        <div class="col col-md-6 mx-auto">
+                            <a class="btn-crud w-100 mb-4"   type="button" href="{% url 'administrador:Reportegaleria' %}"  data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                                <div class="card border-left-primary shadow h-100 py-2 rounded-pill">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+            
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                                        Generar Reportes
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-solid fa-file-lines earn-icon earning fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="card card-body">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="order-list">
+                                <p class="order-ac-title">Listado de Galeria</p>
+        
+                                <div class="data-table-section table-responsive">
+                                    <table id="tabla_galeria" class="table table-striped" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>TITULO</th>
+                                                <th>DESCRIPCION</th>
+                                                <th>IMAGEN</th>
+                                                <th>URL</th>
+                                                <th>ESTADO</th>
+                                                <th>OPCIONES</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="order-view-tb">
+        
+                                        </tbody>        
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                 
+            </div>         
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="crear" role="dialog"></div>
+
+<div class="modal fade" id="editar" role="dialog"></div>
+
+<div class="modal fade" id="eliminar" role="dialog"></div>
+
+{% endblock main %}
+
+{% block extrajs %} 
+    
+    <script src="{% static 'assets/js/galeria/index.js' %}"></script>
+    <script>
+            
+        $(document).ready(function(){
+            var screen = $('#loading-screen');
+            configureLoadingScreen(screen);
+
+            $('.do-request').on('click',function(){
+                $.get(response)
+                    .done(function(result){
+                        $().text(JSON.stringify(result,null,2));
+
+        
+                    })
+                    .fail(function(error){
+                        console.error(error);
+                    })
+                
+            })                          
+
+
+
+        });
+        function configureLoadingScreen(screen){
+            $(document)
+                .ajaxStart(function(){
+                    screen.fadeIn();
+                })
+                .ajaxStop(function(){
+                    screen.fadeOut();
+                });
+                }
+
+
+    </script>
+
+{% endblock extrajs %} 

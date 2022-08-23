@@ -1,0 +1,161 @@
+{% extends 'dashboard/paneladministracion.html' %}
+ 
+{%load static%}
+{% block title %}
+    Listar Eventos
+{% endblock title %}
+
+{% block main %}
+
+<div  id="loading-screen"  > </div>
+
+<section>
+   <div class="all-admin my-5">
+       <div class="container-fluid">
+           <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4 ">
+                    <a class="btn-crud h-100 w-100"  type="button"  href="/indexadmin/agregarprograma"  data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                        <div class="card border-left-danger shadow h-100 py-2 rounded-pill">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                                Agregar Programa
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-add earn-icon wallet fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                </div> 
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4 ">
+                    <button class="btn-crud h-100 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="card border-left-danger shadow h-100 py-2 rounded-pill">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            Listar Contenido de Programa
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-list earn-icon wallet fa-2x text-gray-300"></i>
+                                    </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </button>
+                </div>    
+
+                <div class="collapse" id="collapseExample">
+                    <div class="row">
+                        <div class="col col-md-6 mx-auto">
+                            <a class="btn-crud w-100 mb-4"   type="button" href="{% url 'administrador:Reporteprogramas' %}"  data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                                <div class="card border-left-primary shadow h-100 py-2 rounded-pill">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                                    Generar Reportes
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-solid fa-file-lines earn-icon earning fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="card card-body">
+                        
+                            
+                        {%if programas %}
+                        <div class="col-md-12 col-sm-12">
+                            <div class="order-list">
+                                <p class="order-ac-title">PROGRAMA</p>
+
+                                <div class="data-table-section table-responsive">
+                                    <table id="example" class="table table-striped" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>TITULO</th>
+                                                <th>FECHA PUBLICACIÓN</th>
+                                                <th>DESCRIPCION</th>
+                                                <th>IMAGEN</th>
+                                                <th>SLUG</th>
+                                                <th>ESTADO</th>
+                                                <th>OPCIONES</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="order-view-tb">{% for programa in programas %}
+                                            <tr>
+                                                <td>{{programa.titulo_pro}}</td>
+                                                <td>{{ programa.fechacreacion_pro }}</td>
+                                                <td>{{programa.descripcion_pro}}</td>
+                                                <td class="text-center"> 
+                                                    <img src="/media/{{programa.imagen_pro}}" class="img-fluid d-block mx-auto" style="width: 50px; height: 50px;"><br> 
+                                                </td>
+                                                <td>{{ programa.slug }}</td>
+                                                <td>
+                                                    {% if programa.estado_pro %}
+                                                        Activo
+                                                    {% else %}
+                                                        Inactivo
+                                                    {% endif %} 
+                                                </td>
+                                                <td >
+                                                <a href="{% url 'administrador:editarprograma' programa.id %}" class="status-tb-btn btn-primary rounded-circle"><i class="fas fa-pencil"></i></a>
+                                                <button onclick="abrir_modal_eliminacion('{% url 'administrador:eliminarprograma' programa.id  %}')" class="status-tb-btn btn-danger rounded-circle"><i class="fas fa-trash-alt"></i></button>
+                                                </td>
+                                            </tr>
+                                            
+                                    
+                                        {% endfor %}
+                                        </tbody>
+                                        
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        {%else%}
+                        <h1 class="text-black text-center mt-4">No existen registros  </h1>
+                        {%endif%}
+    
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="eliminar" role="dialog">
+</div>
+{% endblock main %}
+
+{% block extrajs %} 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var $ =jQuery.noConflict();
+    function abrir_modal_eliminacion(url){
+        $('#eliminar').load(url, function(){
+            $(this).modal('show');
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    $(window).load(function() {
+        $("#loading-screen").fadeOut("slow");
+    });
+    </script>
+
+{% endblock extrajs %} 

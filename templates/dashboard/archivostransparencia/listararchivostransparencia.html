@@ -1,0 +1,218 @@
+{% extends 'dashboard/paneladministracion.html' %}
+ 
+{%load static%}
+
+{% block title %}
+    Listar Archivos Transparencia
+{% endblock title %}
+{% block main %}
+<style>
+    #loading-screen {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url('/static/assets/gif/gif3.gif') 50% 50% no-repeat rgb(249,249,249);
+        opacity: .8;
+    }
+</style>
+
+
+
+<div  id="loading-screen"  > </div>
+
+<section>
+   <div class="all-admin my-5">
+       <div class="container-fluid">
+
+                <div class="row">
+                    <!--TABLA-->
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4 ">
+                        <button class="btn-crud h-100 w-100"  onclick="abrir_modal_creacion('{% url 'administrador:creararchivostransparencia' %}')" >
+                            <div class="card border-left-danger shadow h-100 py-2 rounded-pill">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            Añadir Nuevo Documento
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-add earn-icon wallet fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </div> 
+                    
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4 ">
+                        <button class="btn-crud h-100 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            <div class="card border-left-danger shadow h-100 py-2 rounded-pill">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                        
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                Listar Documentos
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-list earn-icon wallet fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>    
+              
+                
+                    <div class="collapse mb-4" id="collapseExample" align="center">
+                        <div class="row">
+                            <div class="col col-md-6 mx-auto">
+                                <button class="btn-crud w-100 mb-4" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                                    <div class="card border-left-primary shadow h-100 py-2 rounded-pill">
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        Generar Reportes
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="fas fa-solid fa-file-lines earn-icon earning fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </button>
+                    
+                            
+                                <div class="collapse collapse-horizontal mb-4" id="collapseWidthExample">
+                                    <div class="card card-body" >
+                                        {%if transparencias %}
+                                            
+                                            {% for carpeta in carpetas%}
+                                                <a href="{% url 'administrador:Reportearchivostransparencia' carpeta.0 %}" class="btn btn-sm btn-outline-primary btn-bottom-right p-2"> <i  class="bi bi-clipboard2-check-fill"></i>{{carpeta.1}}</a>
+                                            {%endfor%}
+                                          
+                                                
+                                        {%else%}
+                                            <p class="text-center"><br> No se han cargado documentos para generar reportes</p>
+                                        {%endif%}              
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card card-body">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="order-list">
+                                    <p class="order-ac-title">Listado de Documentos de Transparencia</p>
+
+                                    <div class="data-table-section table-responsive">
+                                        <table id="tabla_archivos_transparencia" class="table table-striped dt-responsive nowrap" cellspacing="0" style="width:100%">
+                                            <thead>
+                                        
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>AÑO/MES</th>
+                                                    <th>TITULO</th>
+                                                    <th>DESCRIPCION</th>
+                                                    <th>FECHA DE SUBIDA</th>
+                                                    <th>OPCIONES</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="order-view-tb">
+                    
+                                            </tbody>
+                                            
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+      
+        </div>
+   
+   </div>
+</section>
+
+<div class="modal fade" id="crear" role="dialog">
+
+</div>
+
+<div class="modal fade" id="editar" role="dialog">
+
+</div>
+
+<div class="modal fade" id="eliminar" role="dialog">
+    
+</div>
+
+{% endblock main %}
+
+{% block extrajs %} 
+    
+    <script src="{% static 'assets/js/archivotra/archivotra.js' %}"></script>
+
+    <script>
+        
+        $(document).ready(function(){
+            var screen = $('#loading-screen');
+            configureLoadingScreen(screen);
+
+            $('.do-request').on('click',function(){
+                $.get(response)
+                    .done(function(result){
+                        $().text(JSON.stringify(result,null,2));
+
+        
+                    })
+                    .fail(function(error){
+                        console.error(error);
+                    })
+                
+            })                          
+
+
+
+        });
+        function configureLoadingScreen(screen){
+            $(document)
+                .ajaxStart(function(){
+                    screen.fadeIn();
+                })
+                .ajaxStop(function(){
+                    screen.fadeOut();
+                });
+                }
+
+
+    </script>
+
+{% endblock extrajs %} 
+
+<p>
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+      Link with href
+    </a>
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Button with data-bs-target
+    </button>
+</p>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+      Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+    </div>
+  </div>

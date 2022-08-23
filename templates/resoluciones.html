@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block titulo %}Resoluciones{% endblock titulo %}
+{% block main %}
+
+  <section class="ps-4 pe-4 mt-5">
+    <div class="row shadow p-3 mb-5 rounded">
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="{% static './assets/images/resoluciones.png' %}" class="mx-auto mt-3 mb-3 imagen-card" alt="...">
+          <h5 class="card-title">RESOLUCIONES</h5>
+          <p class="card-text">AT-UTC</p>
+        </div>
+  
+      </div>
+      <div class="col-md-9">
+        <h1 class="text-title">RESOLUCIONES</h1>
+        <p>A continuación se presentan las Resoluciones emitidas por el Directorio de la Asociacion de Empleados de la UTC y por su Dirección Ejecutiva.</p>
+      </div>
+    </div>
+  
+  </section>
+  
+  {%if join %}   
+  {% for inner in join %}
+  <section class="container">
+    <div class="row mt-4 shadow-sm p-3 mb-5 rounded">
+      <div class="mx-auto">
+        <p class="text-center h2">{{inner.0}}</p>
+      </div>
+      <div class="col-sm-6 ">
+        <div class="card h-100 bg-light">
+          <div class="card-body">
+            <h5 class="card-title p-4 text-center">RESOLUCIONES DE DIRECTORIO</h5>
+            <div class="text-center">
+              <a href="{% url 'publico:resolucionesdedirectorio' inner.1 %}" class="btn btn-primary  position-relative">ACCEDER...</a>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="card h-100 bg-light">
+          <div class="card-body">
+            <h5 class="card-title p-4 text-center">RESOLUCIONES DE LA ASAMBLEA GENERAL</h5>
+            <div class="text-center">
+              <a href="{% url 'publico:resolucionesdeasamblea' inner.1 %}" class="btn btn-primary  position-relative">ACCEDER...</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    
+  {% endfor%}
+
+  {%else%}
+    <h2 class="text-center border mt-5 mb-5 p-4">No se han cargado archivos en esta sección</h2>
+  {%endif%}
+
+ 
+
+  <!--FIN Documentos-->
+
+
+{% endblock main %}

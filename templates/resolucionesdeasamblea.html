@@ -1,0 +1,117 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block titulo %}Resolucion de Asamblea{% endblock titulo %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static './assets/css/pdf.css' %}">
+{% endblock extracss %}
+{% block main %}
+    <!--Documentos-->
+    <section class="ps-4 pe-4 mt-5">
+        <div class="row mt-5 shadow p-3 mb-5 rounded">
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="{% static './assets/images/resoluciones.png' %}" class="mx-auto mt-3 mb-3 imagen-card" alt="...">
+                    <h5 class="card-title">Resoluciones de Asamblea {%for ir in is %}{{ir.1}}{%endfor%}</h5>
+                    <p class="card-text">AT-UTC</p>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <h1 class="text-title">Resoluciones de Asamblea  {%for ir in is %}{{ir.1}}{%endfor%}</h1>
+                <p>A continuación encontrarás el listado de Resoluciones de Asamblea {%for ir in is %}{{ir.1}}{%endfor%}, emitidas por la Asociacion de Empleados de la UTC.</p>
+            </div>
+        </div>
+    </section>
+        
+    <section class="container">
+        <div class="row">
+            <!--TABLA-->
+            {%if inner %} 
+                <div class="col-md-12 col-sm-12 shadow-lg p-3 mb-5 bg-body rounded">
+                    <div class="card">
+                        <div class="card-header text-light" style="background-color: #312682;">
+                        <span><i class="bi bi-journals"></i></span> DOCUMENTOS RESOLUCIONES DE ASAMBLEA
+                        </div>
+                        <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="table table-striped data-table" style="width:100%">
+                                <thead >
+                                    <tr >
+                                        <th>ID</th>
+                                        <th>TÍTULO</th>
+                                        <th style="display:none;">Contenido</th>
+                                        <th>FECHA DE PUBLICACIÓN</th>
+                                        <th>DESCRIPCIÓN</th>
+                                        <th>VISUALIZAR</th>
+            
+                                    </tr>
+                                </thead>
+                                <tbody class="order-view-tb">
+                                    {% for join in inner %}  
+                                        <tr class="bg-light.bg-gradient">
+                                            <td>{{join.0}}</td>
+                                            <td>{{join.1}}<small>.pdf</small></td>
+                                            <td style="display:none;">{{join.4}}</td>
+                                            <td>{{join.5}}</td>
+                                            <td>{{join.2}}</td>
+                                            <!-- condicion si existe contador o no existe contador de visualizacion-->
+                                            {% if veras %}
+                                            <td> 
+                                                {%for verea in veras %}
+                                                    {% for idasa in idasam %}  
+                                                        {% if idasa.0 == join.0 %}
+                                                            <form>    
+                                                                <button class="btn btn-link" value="{{idasa.0}}"  name="contador"><img src="{% static './assets/images/pdf.png'  %}" class="mx-auto img_pdf"> </button>
+                                                            </form> 
+                                                        {%endif%}
+                                                    {% endfor %} 
+                                                            
+                                                {%endfor%} 
+                                            </td>
+                                            {%else%}
+                                                <td> 
+                                                    {% for idasa in idasam %}  
+                                                            {% if idasa.0 == join.0 %}
+                                                                <form>    
+                                                                    <button class="btn btn-link" value="{{idasa.0}}"  name="sincontador" ><img src="{% static './assets/images/pdf.png'  %}" class="mx-auto img_pdf"> </button>
+                                                                </form> 
+                                                            {%endif%}
+                                                    {% endfor %}   
+                                                </td>
+                                            {%endif%}    
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                
+            {%else%}
+            <h1 class="text-black text-center mt-4 p-5">No existen registros  </h1>
+            {%endif%}
+        </div>
+
+    </section>
+
+    
+
+
+   
+{% endblock main %}
+
+{% block extrajs %}
+<script>
+    //============DATATABLES=========================
+
+    $(document).ready( function () {
+        $('#example').DataTable({
+            language:{
+                url: '{% static "./es-ar.json" %}'
+            }
+        });
+    } );
+</script>
+{% endblock extrajs %}

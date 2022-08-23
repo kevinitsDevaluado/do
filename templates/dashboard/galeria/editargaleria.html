@@ -1,0 +1,53 @@
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-light" style="background-color: #312682;">
+        <h5 class="modal-title">Edicion de la {{ object }}</h5>
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form method = "post" enctype="multipart/form-data" id="form_edicion" action="{% url 'administrador:editargaleria' object.pk %}">
+          {% csrf_token %}
+          <div class="modal-body">
+              <div  id="erroresEdicion"></div>
+              <div class="row">
+                <div class="col-md-8">{{form.as_p}} </div>
+                <div class="col-md-4">
+                  <label for="" class="form-label">Imagen Actual:</label>
+                  <img src="/media/{{object.imagen_gal}}" class="img-fluid d-block mx-auto shadow-lg  mb-5 bg-body rounded">
+                </div>
+              </div>
+              
+                
+          </div>
+          <div class="modal-footer">
+             <button type="button" class="btn btn-danger" onclick="cerrar_modal_edicion()">Cancelar</button>
+             <button id="boton_creacion" type="button" class="btn btn-primary" onclick="editar();">Confirmar</button>
+          </div>
+
+      </form>
+      
+    </div>
+</div>
+
+
+
+{% block extrajs %} 
+
+    <script>
+
+        
+            $("#imagen_gal").fileinput({
+                
+                uploadAsync: false,
+                showUpload: false,
+                language:"es",
+                purifyHtml: true,
+                maxFileSize: 1024*2,
+
+
+            });
+
+          
+      
+    </script>
+
+{% endblock extrajs %}

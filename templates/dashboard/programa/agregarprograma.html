@@ -1,0 +1,70 @@
+{% extends 'dashboard/paneladministracion.html' %}
+ 
+{%load static%}
+{% load crispy_forms_tags %}
+
+
+{% block extracss %} 
+
+{% endblock extracss %} 
+
+{% block main %}
+
+<section>
+    <div class="all-admin my-5">
+        <div class="container-fluid">
+            <div class="row col-md-8 mx-auto">
+                
+                <div class="mx-auto">  
+                    <div class="card" >
+                        <div class="card-header text-light fw-normal" style="background-color: #312682;">
+                            Agregar Programa
+                        </div>
+                        <div class="card-body"> 
+                            <form method="post" enctype="multipart/form-data" class="needs-validation">
+                                {% csrf_token %}
+                                {{ form.media }}
+                                {{form|crispy}}
+                                
+                                <button  type="submit" class="btn btn-success mt-4" > Agregar </button>
+            
+                            </form>
+
+                        </div>
+                    </div>
+                </div>  
+
+               
+           
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock main %}
+  
+{% block extrajs %} 
+
+    <script>
+
+        
+            $("#formFile").fileinput({
+                
+                uploadAsync: false,
+                showUpload: false,
+                overwriteInitial: false,
+                language:"es",
+                initialPreviewAsData: true,
+                purifyHtml: true,
+                allowedFileTypes:['image'],
+                maxFileSize: 1024*2 
+              
+                
+
+            });
+
+          
+      
+    </script>
+
+{% endblock extrajs %} 

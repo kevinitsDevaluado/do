@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            body {
+                font-family: Arial;
+            }
+            
+            table{
+                width: 100%;
+                text-align: center;
+                border-collapse: collapse;
+               
+            }
+            th, td{
+                border: solid 1px black;
+                padding: 5px;
+            }
+            thead{
+                background-color: #246355;
+                border-bottom: solid 5px #0F362D;
+                color: #fff
+            }
+            tr:nth-child(even){
+              background-color: #ddd;  
+            }
+            .hed{
+                display: contents;
+        
+            }
+            .centrar{
+               
+                height: auto;
+                overflow: hidden;
+              
+                margin: auto;
+                text-align: center;
+               
+                
+        
+            }
+            .izquierda, .derecha{
+                width: 48%;
+                height: auto;
+                overflow: hidden;
+               
+                display: inline-block; 
+              
+                
+                
+            }
+            .izquierda  {
+                float: left;
+                text-align: left;
+            }
+            .derecha{
+                float: right;
+                text-align: right;
+            }
+            .img{
+                width: 200px;
+                border-radius: 50px;
+            }
+            .head{
+                text-align: center;
+            }
+            .footer{
+                margin-top: 20px;
+                font-size: 14px;
+                
+            }
+        
+            @page {
+                size: a4 portrait;
+                
+                @frame header_frame {           /* Static Frame */
+                    -pdf-frame-content: header_content;
+                    left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+                }
+                @frame content_frame {          /* Content Frame */
+                    left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+                }
+                @frame footer_frame {           /* Another static Frame */
+                    -pdf-frame-content: footer_content;
+                    left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+                }
+            }
+        
+            
+            
+        </style>
+
+    </head>
+
+
+
+<body>
+    <div id="header_content">ASO Empleados UTC</div>
+    <div class="main-container">
+        <section>
+            <div class="centrar">
+                <div class="izquierda" style="text-align: center;">
+                    <img src="{{icon}}" alt="" class="img"> 
+                    
+                </div>
+                
+            </div>
+        </section>
+        <section>
+            <div class="head">
+                <h1>{{titulo}}</h1>
+            </div>
+        </section>
+        <section>
+            <table>
+                <thead>
+                    <tr style="background: #312682">
+                        <th style="width: 30px;">Nº</th>
+                        <th>USUARIO</th>
+                        <th>CORREO</th>
+                        <th>NOMBRE</th>
+                        <th>APELLIDO</th>
+                        <th>IMAGEN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for usuario in usuarios %}
+                    <tr>
+                        <td style="width: 30px;"> {{forloop.counter}}</td>
+                        <td> {{usuario.username}}</td>
+                        <td> {{usuario.email}}</td>
+                        <td> {{usuario.nombres }}</td>
+                        <td> {{usuario.apellidos}}</td>
+                        <td>  <img src="/media/{{usuario.imagen}}" class="img-fluid d-block mx-auto" style="width: 50px; height: 50px;"><br> 
+                        </td>
+
+                    </tr>
+                    {%endfor%}
+                    
+                
+                </tbody>
+                
+            </table>
+
+        </section>
+        <section>
+            <div class="footer">
+                <p class="fuente">Tomada de: <small>www.asoempleadosutc.com</small></p>
+                <div id="footer_content">(c) - page <pdf:pagenumber>
+                    of <pdf:pagecount>
+                </div>
+            </div>
+        </section>
+        
+    </div>
+</body>
+</html>
+
+
+
+
+            
+
+

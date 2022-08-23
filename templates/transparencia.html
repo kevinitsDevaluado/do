@@ -1,0 +1,226 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block titulo %}Transpariencia{% endblock titulo %}
+
+{% block extracss %}
+  <link rel="stylesheet" href="{% static './assets/css/estilo.css' %}">
+{% endblock extracss %}
+
+{% block main %}
+   <!--arbol-->
+   <section class="ps-4 pe-4 mt-5">
+    <div class="row shadow p-3 mb-4 rounded">
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="{% static './assets/images/resoluciones.png' %}" class="mx-auto mt-3 mb-3 imagen-card" alt="...">
+          <h5 class="card-title">TRANSPARENCIA</h5>
+          <p class="card-text">AT-UTC</p>
+        </div>
+    
+      </div>
+      <div class="col-md-9">
+        <h1 class="text-title">TRANSPARENCIA</h1>
+        <p>A continuación se presentan las Resoluciones emitidas por el Directorio de la Asociacion de Empleados de la UTC y por su Dirección Ejecutiva.</p>
+      </div>
+    </div>
+
+   </section>
+ 
+  <section class="container">
+    <div class="row mt-4">
+      <div class="col-md-3 ms-auto mb-2 mt-3">
+        <div class="card colorb">
+          <div class="card-body">
+            
+            <p class="card-text text-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae molestiae
+               eos sed et maiores animi, impedit, eius perferendis repellendus perspiciatis, magnam dolor voluptas
+                corrupti quae mollitia illo qui autem aliquam doloremque incidunt.</p>
+            
+          </div>
+        </div>
+      </div>
+   
+
+  
+      <div class="accordion accordion-flush col-md-8 ms-auto mb-4 mt-3" id="accordionFlushExample">
+        <div class="col-md-12 text-center">
+          <h1>TRANSPARENCIA</h1>
+          
+        </div><div class="">
+          <div class="col-md-12 search">
+            <form method="post">{% csrf_token %} 
+                <div id="custom-search-input">
+                    <div class="input-group col-md-12">
+                        <input type="search" class="form-control" placeholder="Buscar......" name="buscar" value="{{request.post.buscar}}" >
+                        <span class="input-group-list">
+                            <i class="icon icon-search"></i>
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+              
+        <!--Bootstrap Treee-->
+                 
+        {% if not actual %}
+            
+    {%if  not no %}
+
+{% if archivos != None  %}
+
+{%if join %}
+        <div class="collapse.open" id="collapseExample">
+          <div class="card card-body">Busqueda realizada despliegue para ver resultados obtenidos </div> </div>
+        </div>
+          <h6 class="pt-3 ms-4">DOCUMENTACIÓN</h6>
+          <hr>
+          {% for inner in join %}
+          <div >
+              <ul id="arbol" >
+                <li><span class="p-2 mt-2 mb-2 hijo"><i class="bi bi-folder text-primary"></i> {{inner.0}}</span>
+                  <ul class="padre">
+                    {% for inner2 in join2 %} 
+                    {% if inner.1 == inner2.3 %}
+                        <li><span class="hijo"><i class="bi bi-folder text-primary"></i>  {{inner2.1}}</span>
+                          <ul class="padre">
+                            {% for inner3 in join3 %}
+                            {% if inner2.4 == inner3.6 %}
+
+                              {%for archivo in archivos%}
+                                  {% if inner3.1 == archivo.nombre_arch %}
+                                  <li class="ms-4" >  <a href='/media/{{inner3.3}}' target="__blank__" class="text-dark pros">  <span  style="color:#312682"> <i class="bi bi-file-earmark-pdf text-primary"></i> {{inner3.1}}  </span></a></li>
+                                  {%endif%}
+                              {% endfor %}
+                          {% endif %}
+                          {% endfor %}
+                          </ul>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                  </ul>
+                </li>
+              </ul>
+          {% endfor %}
+          </div>
+         
+
+
+        {%else%}
+        <h5 class="text-center mt-4 mb-4 p-4"> No se han cargado ninguna Documentacion</h5>
+        {%endif%}
+
+{%else%} 
+
+
+{%if join %}
+<h6 class="pt-3 ms-4" >DOCUMENTACIÓN</h6>
+<hr>
+
+
+    <ul id="arbol" >
+      {% for inner in join %}
+      <li><span class="p-2 mt-2 mb-2 hijo"><i class="bi bi-folder text-primary"></i> {{inner.0}}</span>
+        <ul class="padre">
+          {% for inner2 in join2 %} 
+            {% if inner.1 == inner2.3 %}
+              <li><span class="hijo" ><i class="bi bi-folder text-primary"></i> {{inner2.1}}</span>
+                <ul class="padre">
+                  {% for inner3 in join3 %}
+                    {% if inner2.4 == inner3.6 %}
+                        <li class="ms-4" >  <a href='/media/{{inner3.3}}' target="__blank__" class="text-dark pros">  <i class="bi bi-file-earmark-pdf text-primary"></i> {{inner3.1}}  </a></li>
+                  
+                      {% endif %}
+                  {% endfor %}
+
+                </ul>
+                
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+          
+      </li>
+    {% endfor %}
+    </ul>
+  
+</div>
+{%else%}
+<h5 class="text-center mt-4 mb-4 p-4"> No se han cargado ninguna Documentacion</h5>
+{%endif%}
+
+ 
+   
+
+           
+{%endif%}       
+
+{%else%}
+
+    {%if join %}
+    <h6 class="pt-3 ms-4" >DOCUMENTACIÓN</h6>
+    <hr>
+
+
+        <ul id="arbol" >
+          {% for inner in join %}
+          <li><span class="p-2 mt-2 mb-2 hijo"><i class="bi bi-folder text-primary"></i> {{inner.0}}</span>
+            <ul class="padre">
+              {% for inner2 in join2 %} 
+                {% if inner.1 == inner2.3 %}
+                  <li><span class="hijo" ><i class="bi bi-folder text-primary"></i> {{inner2.1}}</span>
+                    <ul class="padre">
+                      {% for inner3 in join3 %}
+                        {% if inner2.4 == inner3.6 %}
+                            <li class="ms-4" >  <a href='/media/{{inner3.3}}' target="__blank__" class="text-dark pros">  <i class="bi bi-file-earmark-pdf text-primary"></i> {{inner3.1}}  </a></li>
+                      
+                          {% endif %}
+                      {% endfor %}
+
+                    </ul>
+                    
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+              
+          </li>
+        {% endfor %}
+        </ul>
+      
+        </div>
+        {%else%}
+        <h5 class="text-center mt-4 mb-4 p-4"> No se han cargado ninguna Documentacion</h5>
+
+
+        {%endif%}
+
+    
+        
+    {%endif%}
+
+
+
+{%endif%}
+
+        </div>
+
+      </div>
+    </div>
+     
+  </section>
+  
+  <br>
+
+
+
+  
+{% endblock main %}
+
+{% block extrajs %}
+  <script src="{% static './assets/js/main3.js' %}"></script>
+
+{% endblock extrajs %}
+
+
+

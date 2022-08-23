@@ -1,0 +1,101 @@
+{% extends 'dashboard/paneladministracion.html' %}
+ 
+{%load static%}
+
+{% block title %}
+    Listar Años Temas
+{% endblock title %}
+
+{% block menuleft %}
+    <div class="left-menu">
+            <div class="menubar-content">
+                <nav class="animated bounceInDown">
+                    <ul id="sidebar">
+                        
+                        <li class="active">
+                        <a href="{% url 'administrador:paneladministracion' %}"> <i class="fas fa-home"></i>REGRESAR AE-UTC</a>
+                        </li>
+                      
+                        <li>
+                            <a href="{% url 'archivero:inicio_documentos' %}"> <i class="fa-solid fa-group-arrows-rotate"></i>Regresar al Archivero</a>
+                        </li>
+                        
+                        <li>
+                            <a href="{% url 'logout' %}"> <i class="fas fa-sign-out-alt"></i>CERRAR SESIÓN</a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+    </div>
+{% endblock menuleft %}
+
+{% block main %}
+
+<div  id="loading-screen"  > </div>
+<style>
+    #loading-screen {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url('/static/assets/gif/gif3.gif') 50% 50% no-repeat rgb(249,249,249);
+        opacity: .8;
+    }
+</style>
+<section>
+   <div class="all-admin my-5">
+       <div class="container-fluid">
+           <div class="row">
+               <!--TABLA-->
+              {%for x in xa%}
+                {{x.0}}
+                {%endfor%}
+               
+           </div>
+       </div>
+   </div>
+</section>
+
+{% endblock main %}
+
+{% block extrajs %} 
+    
+    <script src="{% static 'assets/js/archivero/aniotemas/index.js' %}"></script>
+    <script>
+            
+        $(document).ready(function(){
+            var screen = $('#loading-screen');
+            configureLoadingScreen(screen);
+
+            $('.do-request').on('click',function(){
+                $.get(response)
+                    .done(function(result){
+                        $().text(JSON.stringify(result,null,2));
+
+        
+                    })
+                    .fail(function(error){
+                        console.error(error);
+                    })
+                
+            })                          
+
+
+
+        });
+        function configureLoadingScreen(screen){
+            $(document)
+                .ajaxStart(function(){
+                    screen.fadeIn();
+                })
+                .ajaxStop(function(){
+                    screen.fadeOut();
+                });
+                }
+
+
+    </script>
+{% endblock extrajs %} 

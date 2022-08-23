@@ -1,0 +1,85 @@
+{%load static%}
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+   
+    <link rel="stylesheet" href="{% static './assets/css/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+   
+    <!--Redireccionamiento icono-->
+    <link rel="icon" href="{% static './assets/images/sello_white.ico' %}">
+
+
+    <!--Estilos extra-->
+    <link rel="stylesheet" href="{% static './assets/css/acceso.css' %}">
+   
+   
+    {% block extracss %}
+    {% endblock extracss %}
+
+    
+    
+    <title>{% block titulo %}Inicio_de_Sesion{% endblock titulo %}</title>
+    
+  </head>
+  <body>
+   
+    <div class="container">
+      <div class="row mt-4"> <!-- espaciado horizontal-->
+        <div class=" col-md-4  col-sm-2 col-xs-6">
+          <img src="{% static './assets/images/sello.png' %}" alt="" class="img-fluid img_logo" >
+        </div>
+        <div class="col-md-8 col-sm-10 col-xs-6">
+          <h1 class="display-3 text-light text-end fw-bolder titulo_log">Iniciar Sesión</h1>
+        </div>
+      </div>
+      
+      <div class="row justify-content-center pt-5 mt-4 m-1">
+        <div class="col-md-8 col-sm-10 col-xl-5 col-lg-6 formulario">
+          <form method="POST" class="p-4">
+            {% csrf_token %}    
+            <div class="form-group text-center pt-3">
+              <h1 class="text-light">INICIO DE SESIÓN</h1>
+            </div>
+
+            <div class="form-group mb-3 mx-sm-4 pt-3">
+              {% if request.method == 'POST' %} 
+                {% if form.error_messages %}
+                  <div class="alert alert-danger alert-dismissible fade-show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong>Advertencia: </strong>{{ form.get_invalid_login_error }}
+                  </div>
+                {% endif %}
+              {% endif %}
+              <label  class="form-label text-light">USUARIO</label>
+              {{ form.username }}   
+            </div>
+            <div class="form-group mb-3 mx-sm-4 pb-3">
+              <label  class="form-label text-light">CONTRASEÑA</label>
+              {{ form.password }}
+            </div>
+
+            <div class="form-group mx-sm-4 pb-3">
+              <button type="submit" class="form-control ingresar">Iniciar Sesion</button>
+            </div>
+          </form>
+  
+        </div>
+      </div>  
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="{% static './assets/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static './assets/js/jquery.min.js' %}"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+   
+</body>
+</html>

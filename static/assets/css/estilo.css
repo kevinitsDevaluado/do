@@ -1,0 +1,53 @@
+/* Se elimina las viñetas predeterminadas */
+ul, #arbol {
+    list-style-type: none;
+    
+  }
+  
+  /* Eliminar márgenes y relleno de la ul principal */
+  #arbol {
+    margin: 0;
+    margin-left: 30px;
+    padding: 0px;
+    
+  }
+
+
+  
+  /* Estilo hijo/flecha */
+  .hijo {
+    cursor: pointer;
+    user-select: none; /* Prevent text selection */
+    
+  }
+ 
+  
+  /* Creacion del hijo/flecha con unicode y darle estilo */
+  .hijo::before {
+    content: "\25B6";
+    color: rgb(0, 5, 71);
+    display: inline-block;
+    margin-right: 6px;
+    padding: 6px;
+  }
+  
+  /* Rotacion de hijo/flecha icono cuando se hace clic  (usando JavaScript) */
+  .hijo-down::before {
+    transform: rotate(90deg);
+  }
+  
+  /* Ocultar la lista de padres */
+  .padre {
+    display: none;
+  }
+
+  .pros{
+    text-decoration: none;
+  }  
+
+ 
+  
+  /* Mostrar la lista de padres cuando el usuario hace clic en el signo de hijo/flecha (con JavaScript) */
+  .active {
+    display: block;
+  }
